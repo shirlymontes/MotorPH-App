@@ -251,8 +251,9 @@ public class AddEmployeeForm extends javax.swing.JPanel {
         String hourly = tfHourlyRate.getText();
         String phoneAllowance = tfPhoneAllowance.getText();
         String position = tfPosition.getText();
+
         
-        String newEntry = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+        String newEntry = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 enumber, elname, efname, bday, add, phone, sss, philhealth, tin, pagibig,
                 status, supervisor, basic, rice, clothing, grossSemi, hourly, phoneAllowance, position);
 
