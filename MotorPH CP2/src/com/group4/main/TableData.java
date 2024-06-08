@@ -65,7 +65,7 @@ public class TableData {
         while (matcher.find()) {
             String fieldValue = matcher.group(1); // Group 1 contains the value inside double quotes, if any
             if (fieldValue == null) {
-                fieldValue = matcher.group(2); // Group 2 contains the value without ggdfgquotes
+                fieldValue = matcher.group(2); // Group 2 contains the value without quotes
             }
             data[index++] = fieldValue;
         }

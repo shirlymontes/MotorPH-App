@@ -1,18 +1,25 @@
 package com.group4.form;
 
 import com.group4.main.TableData;
-import java.io.File;
-import java.net.URL;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class EmployeeForm extends javax.swing.JPanel {
 
     private TableData tableData;
+    private JTable table;
+    private AddEmployeeForm addEmployeeForm;
 
     public EmployeeForm() {
         initComponents();
         initializeTable();
+
+        table = new JTable();
+
 
         tableData = new TableData(EmployeeData);
         String filePath = "C:\\Users\\PotChi\\Documents\\NetBeansProjects\\MotorPH-App\\MotorPH CP2\\src\\com\\group4\\csv\\employeedata1.csv";
@@ -33,26 +40,12 @@ public class EmployeeForm extends javax.swing.JPanel {
 
     }
 
-    private void loadEmployeeData(String filePath) {
-        try {
-            // Use getResource to find the file in the package
-            URL resource = getClass().getClassLoader().getResource(filePath);
-            if (resource == null) {
-                throw new IllegalArgumentException("File not found: " + filePath);
-            }
-            File file = new File(resource.toURI());
-            tableData.loadEmployeeData(file.getPath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         roundCornerPanel1 = new com.group4.components.RoundCornerPanel();
-        btnView = new com.group4.resources.Button();
+        btnGenerate = new com.group4.resources.Button();
         tfLastName = new javax.swing.JTextField();
         tfEnum = new javax.swing.JTextField();
         tfPosition = new javax.swing.JTextField();
@@ -79,16 +72,17 @@ public class EmployeeForm extends javax.swing.JPanel {
         EmployeeData = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnAdd = new com.group4.resources.Button();
+        button1 = new com.group4.resources.Button();
 
         setOpaque(false);
 
-        btnView.setBackground(new java.awt.Color(249, 130, 14));
-        btnView.setForeground(new java.awt.Color(255, 255, 255));
-        btnView.setText(" View");
-        btnView.setToolTipText("");
-        btnView.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerate.setBackground(new java.awt.Color(249, 130, 14));
+        btnGenerate.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerate.setText("Generate Salary");
+        btnGenerate.setToolTipText("");
+        btnGenerate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewActionPerformed(evt);
+                btnGenerateActionPerformed(evt);
             }
         });
 
@@ -143,6 +137,11 @@ public class EmployeeForm extends javax.swing.JPanel {
         btnDelete.setBackground(new java.awt.Color(255, 153, 153));
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         tfFirstName.setBorder(javax.swing.BorderFactory.createTitledBorder("First Name"));
 
@@ -172,59 +171,58 @@ public class EmployeeForm extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addGap(33, 33, 33)))
-                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tfAddress, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundCornerPanel1Layout.createSequentialGroup()
                         .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                    .addComponent(tfPosition))
-                                .addGap(18, 18, 18)
-                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfGrossSemi, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tfSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfSss, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfSss, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfPhilhealth))
-                                    .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                            .addComponent(tfGrossSemi, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(tfHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                            .addComponent(tfBasic, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(tfRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(30, 30, 30)
+                                .addComponent(tfBasic, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6)
+                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(tfPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                                .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                            .addComponent(tfPhilhealth, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tfTin, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tfPagibig, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfAddress, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundCornerPanel1Layout.createSequentialGroup()
                                 .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                                        .addComponent(tfPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundCornerPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfTin, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfPagibig, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(60, 60, 60))
+                                        .addComponent(tfStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                                        .addComponent(tfPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         roundCornerPanel1Layout.setVerticalGroup(
             roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,44 +240,40 @@ public class EmployeeForm extends javax.swing.JPanel {
                             .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(tfPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(10, 10, 10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundCornerPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(roundCornerPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(tfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tfStatus))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(6, 6, 6)
+                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfStatus))
+                        .addGap(12, 12, 12)
                         .addComponent(tfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfPagibig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfTin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfPhilhealth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
-                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfBasic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfGrossSemi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34))))
+                            .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tfPagibig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfTin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfSss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tfBasic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfRiceSubsidy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfPhoneAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(12, 12, 12)
+                        .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tfGrossSemi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(roundCornerPanel1Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(roundCornerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(52, 52, 52))))
         );
 
         EmployeeData.setModel(new javax.swing.table.DefaultTableModel(
@@ -322,18 +316,27 @@ public class EmployeeForm extends javax.swing.JPanel {
             }
         });
 
+        button1.setBackground(new java.awt.Color(153, 204, 255));
+        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/group4/images/refresh.png"))); // NOI18N
+        button1.setText("Refresh Table");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 961, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(roundCornerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(roundCornerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,23 +346,37 @@ public class EmployeeForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(roundCornerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        ViewEmployeeForm employeeForm = new ViewEmployeeForm();
+
+    private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
+        String enumber = tfEnum.getText();
+        String elname = tfLastName.getText();
+        String efname = tfFirstName.getText();
+        String position = tfPosition.getText();
+        String status = tfStatus.getText();
+        String basic = tfBasic.getText();
+        String rice = tfRiceSubsidy.getText();
+        String phoneAllowance = tfPhoneAllowance.getText();
+        String clothing = tfClothing.getText();
+        String hourly = tfHourlyRate.getText();
+
+        GeneratePayslipForm employeeForm = new GeneratePayslipForm(enumber, elname, efname, position, status, basic, rice, phoneAllowance, clothing, hourly);
         JDialog dialog = new JDialog();
-        dialog.setTitle("View Employee");
+        dialog.setTitle("Generate Payslip");
         dialog.getContentPane().add(employeeForm);
         dialog.pack();
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
 
-    }//GEN-LAST:event_btnViewActionPerformed
+    }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void EmployeeDataAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_EmployeeDataAncestorAdded
 
@@ -368,59 +385,37 @@ public class EmployeeForm extends javax.swing.JPanel {
     private void EmployeeDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeDataMouseClicked
         // Get the selected row index
         int rowIndex = EmployeeData.getSelectedRow();
-        // Ensure a row is selected and it's a single click
-        if (rowIndex >= 0 && evt.getClickCount() == 1) {
-            // Retrieve data from the JTable
-            String enumber = EmployeeData.getValueAt(rowIndex, 0).toString();
-            String elname = EmployeeData.getValueAt(rowIndex, 1).toString();
-            String efname = EmployeeData.getValueAt(rowIndex, 2).toString();
-            String bday = EmployeeData.getValueAt(rowIndex, 3).toString();
-            String address = EmployeeData.getValueAt(rowIndex, 4).toString();
-            String phone = EmployeeData.getValueAt(rowIndex, 5).toString();
-            String sss = EmployeeData.getValueAt(rowIndex, 6).toString();
-            String philhealth = EmployeeData.getValueAt(rowIndex, 7).toString();
-            String tin = EmployeeData.getValueAt(rowIndex, 8).toString();
-            String pagibig = EmployeeData.getValueAt(rowIndex, 9).toString();
-            String status = EmployeeData.getValueAt(rowIndex, 10).toString();
-            String position = EmployeeData.getValueAt(rowIndex, 11).toString();
-            String supervisor = EmployeeData.getValueAt(rowIndex, 12).toString();
-            String basic = EmployeeData.getValueAt(rowIndex, 13).toString();
-            String rice = EmployeeData.getValueAt(rowIndex, 14).toString();
-            String phoneAllowance = EmployeeData.getValueAt(rowIndex, 15).toString();
-            String clothing = EmployeeData.getValueAt(rowIndex, 16).toString();
-            String grossSemi = EmployeeData.getValueAt(rowIndex, 17).toString();
-            String hourly = EmployeeData.getValueAt(rowIndex, 18).toString();
+        if (rowIndex != -1) {
+            DefaultTableModel model = (DefaultTableModel) EmployeeData.getModel();
 
-            // Set the retrieved data to text fields
-            tfEnum.setText(enumber);
-            tfLastName.setText(elname);
-            tfFirstName.setText(efname);
-            tfBirthday.setText(bday);
-            tfAddress.setText(address);
-            tfPhone.setText(phone);
-            tfSss.setText(sss);
-            tfPhilhealth.setText(philhealth);
-            tfTin.setText(tin);
-            tfPagibig.setText(pagibig);
-            tfStatus.setText(status);
-            tfPosition.setText(position);
-            tfSupervisor.setText(supervisor);
-            tfBasic.setText(basic);
-            tfRiceSubsidy.setText(rice);
-            tfPhoneAllowance.setText(phoneAllowance);
-            tfClothing.setText(clothing);
-            tfGrossSemi.setText(grossSemi);
-            tfHourlyRate.setText(hourly);
+            tfEnum.setText(getValueAsString(model.getValueAt(rowIndex, 0)));
+            tfLastName.setText(getValueAsString(model.getValueAt(rowIndex, 1)));
+            tfFirstName.setText(getValueAsString(model.getValueAt(rowIndex, 2)));
+            tfBirthday.setText(getValueAsString(model.getValueAt(rowIndex, 3)));
+            tfAddress.setText(getValueAsString(model.getValueAt(rowIndex, 4)));
+            tfPhone.setText(getValueAsString(model.getValueAt(rowIndex, 5)));
+            tfSss.setText(getValueAsString(model.getValueAt(rowIndex, 6)));
+            tfPhilhealth.setText(getValueAsString(model.getValueAt(rowIndex, 7)));
+            tfTin.setText(getValueAsString(model.getValueAt(rowIndex, 8)));
+            tfPagibig.setText(getValueAsString(model.getValueAt(rowIndex, 9)));
+            tfStatus.setText(getValueAsString(model.getValueAt(rowIndex, 10)));
+            tfPosition.setText(getValueAsString(model.getValueAt(rowIndex, 11)));
+            tfSupervisor.setText(getValueAsString(model.getValueAt(rowIndex, 12)));
+            tfBasic.setText(getValueAsString(model.getValueAt(rowIndex, 13)));
+            tfRiceSubsidy.setText(getValueAsString(model.getValueAt(rowIndex, 14)));
+            tfPhoneAllowance.setText(getValueAsString(model.getValueAt(rowIndex, 15)));
+            tfClothing.setText(getValueAsString(model.getValueAt(rowIndex, 16)));
+            tfGrossSemi.setText(getValueAsString(model.getValueAt(rowIndex, 17)));
+            tfHourlyRate.setText(getValueAsString(model.getValueAt(rowIndex, 18)));
         }
     }//GEN-LAST:event_EmployeeDataMouseClicked
+
     private String getValueAsString(Object value) {
-        // Check if the value is null
-        if (value != null) {
-            return value.toString();
-        } else {
-            return ""; // Return an empty string if the value is null
-        }
+
+        return value == null ? "" : value.toString();
     }
+
+
     private void tfAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAddressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfAddressActionPerformed
@@ -430,26 +425,99 @@ public class EmployeeForm extends javax.swing.JPanel {
     }//GEN-LAST:event_tfBirthdayActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        int rowIndex = EmployeeData.getSelectedRow();
+        if (rowIndex >= 0) {
+            DefaultTableModel model = (DefaultTableModel) EmployeeData.getModel();
+            model.setValueAt(tfEnum.getText(), rowIndex, 0);
+            model.setValueAt(tfLastName.getText(), rowIndex, 1);
+            model.setValueAt(tfFirstName.getText(), rowIndex, 2);
+            model.setValueAt(tfBirthday.getText(), rowIndex, 3);
+            model.setValueAt(tfAddress.getText(), rowIndex, 4);
+            model.setValueAt(tfPhone.getText(), rowIndex, 5);
+            model.setValueAt(tfSss.getText(), rowIndex, 6);
+            model.setValueAt(tfPhilhealth.getText(), rowIndex, 7);
+            model.setValueAt(tfTin.getText(), rowIndex, 8);
+            model.setValueAt(tfPagibig.getText(), rowIndex, 9);
+            model.setValueAt(tfStatus.getText(), rowIndex, 10);
+            model.setValueAt(tfPosition.getText(), rowIndex, 11);
+            model.setValueAt(tfSupervisor.getText(), rowIndex, 12);
+            model.setValueAt(tfBasic.getText(), rowIndex, 13);
+            model.setValueAt(tfRiceSubsidy.getText(), rowIndex, 14);
+            model.setValueAt(tfPhoneAllowance.getText(), rowIndex, 15);
+            model.setValueAt(tfClothing.getText(), rowIndex, 16);
+            model.setValueAt(tfGrossSemi.getText(), rowIndex, 17);
+            model.setValueAt(tfHourlyRate.getText(), rowIndex, 18);
+
+            updateCSVFile();
+
+            JOptionPane.showMessageDialog(this, "Please select an employee to update.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an employee to update.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        AddEmployeeForm employeeForm = new AddEmployeeForm();
+       AddEmployeeForm employeeForm = new AddEmployeeForm();
         JDialog dialog = new JDialog();
-        dialog.setTitle("View Employee");
+        dialog.setTitle("Add Employee");
         dialog.getContentPane().add(employeeForm);
         dialog.pack();
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
+
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = EmployeeData.getSelectedRow();
+        if (selectedRow != -1) {
+
+            DefaultTableModel model = (DefaultTableModel) EmployeeData.getModel();
+            model.removeRow(selectedRow);
+
+            JOptionPane.showMessageDialog(this, "Employee Deleted", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an employee to delete.", "Error", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void updateCSVFile() {
+        try (FileWriter csvWriter = new FileWriter("employeedata1.csv")) {
+            DefaultTableModel model = (DefaultTableModel) EmployeeData.getModel();
+            int columnCount = model.getColumnCount();
+
+            for (int i = 0; i < columnCount; i++) {
+                csvWriter.append(model.getColumnName(i));
+                if (i < columnCount - 1) {
+                    csvWriter.append(",");
+                }
+            }
+            csvWriter.append("\n");
+
+            int rowCount = model.getRowCount();
+            for (int i = 0; i < rowCount; i++) {
+                for (int j = 0; j < columnCount; j++) {
+                    csvWriter.append(getValueAsString(model.getValueAt(i, j)));
+                    if (j < columnCount - 1) {
+                        csvWriter.append(",");
+                    }
+                }
+                csvWriter.append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EmployeeData;
     private com.group4.resources.Button btnAdd;
     private com.group4.resources.Button btnDelete;
+    private com.group4.resources.Button btnGenerate;
     private com.group4.resources.Button btnUpdate;
-    private com.group4.resources.Button btnView;
+    private com.group4.resources.Button button1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

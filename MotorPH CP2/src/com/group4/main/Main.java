@@ -122,6 +122,7 @@ public class Main extends javax.swing.JFrame {
 
         button1 = new com.group4.resources.Button();
         button2 = new com.group4.resources.Button();
+        jTextField1 = new javax.swing.JTextField();
         Background = new com.group4.resources.WaveBackground();
         PanelLogin = new com.group4.resources.PanelTransparent();
         cmdLogin = new com.group4.resources.Button();
@@ -137,6 +138,8 @@ public class Main extends javax.swing.JFrame {
         PayrollForm = new com.group4.form.PayrollForm();
         sideMenu = new com.group4.component.SideMenu();
         jLabel2 = new javax.swing.JLabel();
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(73, 79, 101));
@@ -189,21 +192,21 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(391, Short.MAX_VALUE)
                 .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLoginLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(430, 430, 430))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLoginLayout.createSequentialGroup()
                         .addGroup(PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(cmdLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                             .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(363, 363, 363))))
+                        .addGap(363, 363, 363))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLoginLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(441, 441, 441))))
         );
         PanelLoginLayout.setVerticalGroup(
             PanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelLoginLayout.createSequentialGroup()
-                .addGap(216, 216, 216)
+                .addGap(222, 222, 222)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(37, 37, 37)
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -462,6 +465,7 @@ public class Main extends javax.swing.JFrame {
     private com.group4.resources.Button cmdLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField1;
     private com.group4.resources.PanelTransparent panelFormPlaceholder;
     private com.group4.component.SideMenu sideMenu;
     private com.group4.resources.PasswordField txtPass;
