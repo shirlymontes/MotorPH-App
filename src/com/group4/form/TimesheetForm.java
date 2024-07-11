@@ -179,6 +179,7 @@ public class TimesheetForm extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         LeaveRequestTable = new javax.swing.JTable();
@@ -230,6 +231,7 @@ public class TimesheetForm extends JPanel {
     private javax.swing.JTable LeaveRequestTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
 }

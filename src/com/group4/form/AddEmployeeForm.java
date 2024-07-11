@@ -280,12 +280,12 @@ public class AddEmployeeForm extends javax.swing.JPanel {
         }
 
         String newEntry = String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
-                enumber, elname, efname, bday, add, phone, sss, philhealth, tin, pagibig,
-                status, supervisor, basic, rice, clothing, grossSemi, hourly, phoneAllowance, position);
+                enumber, elname, efname, bday,status, add, phone, sss, philhealth, tin, pagibig
+                , supervisor,position, basic, rice, clothing, grossSemi, hourly, phoneAllowance);
 
        // Create an array with the employee data
-        Object[] rowData = new Object[]{enumber, elname, efname, bday, add, phone, sss, philhealth, tin, pagibig,
-            status, supervisor, basic, rice, clothing, grossSemi, hourly, phoneAllowance, position};
+        Object[] rowData = new Object[]{enumber, elname, efname,  bday, add, phone, sss, philhealth, tin, pagibig,
+                    status, supervisor, position, basic, rice,phoneAllowance, clothing, grossSemi, hourly};
 
         // Update EmployeeData table in EmployeeForm
         employeeForm.updateEmployeeData(rowData);
@@ -302,7 +302,7 @@ public class AddEmployeeForm extends javax.swing.JPanel {
             if (EmployeeData != null) {
                 DefaultTableModel model = (DefaultTableModel) EmployeeData.getModel();
                 model.addRow(new Object[]{enumber, elname, efname, bday, add, phone, sss, philhealth, tin, pagibig,
-                    status, supervisor, basic, rice, clothing, grossSemi, hourly, phoneAllowance, position});
+                    status, supervisor, position, basic, rice,phoneAllowance, clothing, grossSemi, hourly});
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Adding Employee Failed: " + e.getMessage());
